@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 // Configuration
-const PORT = 3000;
+const PORT = 8000;
 const HOST = "localhost";
 const API_SERVICE_PROTOCOL="https"
 const API_SERVICE_URL = "0344-103-94-135-11.ngrok-free.app";
@@ -25,9 +25,11 @@ app.all('/*', async function(req, res) {
     var reqBody={
         method: req.method.toLowerCase(),
         url: `${API_SERVICE_PROTOCOL}://${API_SERVICE_URL}${req.path}`,
-        data: req.body
-        // headers:{...req.headers,host:API_SERVICE_URL,"ngrok-skip-browser-warning":true}
+        data: req.body,
+        headers:{authorization:req.headers['authorization']}
       }
+
+    
 
 
     try{
